@@ -1,3 +1,5 @@
+const comandos = require('./comandos.js')
+
 
 module.exports = msgHandler = async (client, message) => {
   try {
@@ -60,24 +62,26 @@ module.exports = msgHandler = async (client, message) => {
         (formattedTitle)
       );
 
-
-      console.log("FROM 		===>", (pushname));
-      console.log("FROM_ID 	===>", chat.id);
-      console.log("ARGUMENTOS	===>", (args));
-      console.log("FALAS 		===>", (falas));
-      console.log("COMANDO 	===>", (command));
+    console.log("FROM 		===>", (pushname));
+    console.log("FROM_ID 	===>", chat.id);
+    console.log("ARGUMENTOS	===>", (args));
+    console.log("FALAS 		===>", (falas));
+    console.log("COMANDO 	===>", (command));
 
     //switch case para usar quando o usuario digita apenas uma mensagem sem comando
     switch (falas) {
     }
 
-    command.replaceAll("_", "");
-    command.replaceAll("*", "");
-    command.replaceAll("`", "");
-
-    //switch case para usar com comandos !
-    switch (command) {
+    function asd(commands) {
+      if (comandos[commands]?.status) {
+        comandos[commands].pasta();
+      }
     }
+
+    if (commands) {
+      asd(commands);
+    }
+
   } catch (err) {
     await client.sendText(`Puts, deu merda... Erro: ${err}`);
 
