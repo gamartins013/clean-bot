@@ -1,13 +1,18 @@
-const comandos = require('./comandos.js')
-
+const comandos = require("./comandos.js");
 
 module.exports = msgHandler = async (client, message) => {
   try {
     const {
+      id,
+      from,
+      t,
       sender,
       isGroupMsg,
       chat,
       caption,
+      isMedia,
+      mimetype,
+      quotedMsg,
     } = message;
     let { body } = message;
     const { formattedTitle } = chat;
@@ -29,59 +34,53 @@ module.exports = msgHandler = async (client, message) => {
       }
     };
 
-
     // pegar mensagens que comecem com "!" e mostrar no console.
     if (!isGroupMsg && command.startsWith("!"))
       console.log(
         "\x1b[1;31m~\x1b[1;37m>",
         "[\x1b[1;32mEXEC\x1b[1;37m]",
-        (msgs(command)),
+        msgs(command),
         "from",
-        (pushname)
+        pushname
       );
 
     if (isGroupMsg && command.startsWith("!"))
       console.log(
         "\x1b[1;31m~\x1b[1;37m>",
         "[\x1b[1;32mEXEC\x1b[1;37m]",
-        (msgs(command)),
+        msgs(command),
         "from",
-        (pushname),
+        pushname,
         "in",
-        (formattedTitle)
+        formattedTitle
       );
 
     if (isGroupMsg && !command.startsWith("!"))
       console.log(
         "\x1b[1;33m~\x1b[1;37m>",
         "[\x1b[1;31mMSG\x1b[1;37m]",
-        (body),
+        body,
         "from",
-        (pushname),
+        pushname,
         "in",
-        (formattedTitle)
+        formattedTitle
       );
 
-    console.log("FROM 		===>", (pushname));
+    console.log("FROM 		===>", pushname);
     console.log("FROM_ID 	===>", chat.id);
-    console.log("ARGUMENTOS	===>", (args));
-    console.log("FALAS 		===>", (falas));
-    console.log("COMANDO 	===>", (command));
+    console.log("ARGUMENTOS	===>", args);
+    console.log("FALAS 		===>", falas);
+    console.log("COMANDO 	===>", command);
 
-    //switch case para usar quando o usuario digita apenas uma mensagem sem comando
-    switch (falas) {
-    }
-
-    function asd(commands) {
+    function getComands(commands) {
       if (comandos[commands]?.status) {
-        comandos[commands].pasta();
+        comandos[commands].pasta(client, args, message);
       }
     }
 
-    if (commands) {
-      asd(commands);
+    if (command) {
+      getComands(command);
     }
-
   } catch (err) {
     await client.sendText(`Puts, deu merda... Erro: ${err}`);
 

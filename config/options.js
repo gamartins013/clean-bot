@@ -11,9 +11,9 @@ module.exports = options = (headless, start) => {
             height: 1200
         },
         popup: 3012,
-        multiDevice: true,
+        multiDevice: false,
         defaultViewport: null,
-        sessionId: 'CleanBot',
+        sessionId: 'DuffBot',
         headless: headless,
         qrTimeout: 0,
         authTimeout: 60,
